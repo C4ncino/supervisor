@@ -3,28 +3,58 @@ import pyshark
 from pyshark.packet.layers.xml_layer import XmlLayer
 import threading
 
+from database import DatabaseInterface
+
 nodes = {}
+fresh_nodes = {}
 first = True
 
+fresh_n_sem = threading.Semaphore(1)
 
-def metrics():
+db = DatabaseInterface()
+
+
+def get_mbps():
+    global fresh_n_sem
+    global db
+
     while True:
-        for key, val in nodes.items():
-            print(f"Host {key}: {val/1000000} MB")
+        fresh_n_sem.acquire()
 
+        mbps = 0.0
+
+        for _, val in fresh_nodes.items():
+            mbps += val / 1_000_000
+
+        print(f"MBPS: {mbps}")
+
+        db.create_table_row('speed', {
+            'speed': mbps
+        })
+
+        fresh_nodes.clear()
+
+        fresh_n_sem.release()
         sleep(1)
 
 
 def print_callback(packet):
     global nodes
+    global fresh_nodes
     global first
+    global fresh_n_sem
 
     try:
         ip_info: XmlLayer = packet.ip
 
-        # print('Source: ', ip_info.src)
-        # print('Destination: ', ip_info.dst)
-        # print('Length: ', ip_info.len)
+        fresh_n_sem.acquire()
+
+        if ip_info.src not in fresh_nodes:
+            fresh_nodes[ip_info.src] = 0
+
+        fresh_nodes[ip_info.src] += int(ip_info.len)
+
+        fresh_n_sem.release()
 
         if ip_info.src not in nodes:
             nodes[ip_info.src] = 0
@@ -32,8 +62,8 @@ def print_callback(packet):
         nodes[ip_info.src] += int(ip_info.len)
 
         if first:
-            theard = threading.Thread(target=metrics)
-            theard.start()
+            mbps_thread = threading.Thread(target=get_mbps)
+            mbps_thread.start()
             first = False
 
     except AttributeError:
@@ -43,7 +73,11 @@ def print_callback(packet):
 def main():
     capture = pyshark.LiveCapture(interface='Wi-Fi')
 
-    thread_capture = threading.Thread(target=capture.apply_on_packets, args=(print_callback,))
+    thread_capture = threading.Thread(
+        target=capture.apply_on_packets,
+        args=(print_callback,)
+    )
+
     thread_capture.start()
 
 
