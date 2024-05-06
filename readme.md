@@ -1,6 +1,8 @@
 # Supervisor
 
-IP Attributes
+This project contains a script to monitor your network traffic.
+
+## IP Attributes
 
 - `version` 
 - `hdr_len` 
