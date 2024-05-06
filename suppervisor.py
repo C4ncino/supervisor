@@ -5,13 +5,17 @@ import threading
 
 from database import DatabaseInterface
 
-nodes = {}
+# -----------------------------------------------------------------------------
+
+db = DatabaseInterface()
 fresh_nodes = {}
 first = True
 
+# -----------------------------------------------------------------------------
+
 fresh_n_sem = threading.Semaphore(1)
 
-db = DatabaseInterface()
+# -----------------------------------------------------------------------------
 
 
 def get_mbps():
@@ -39,7 +43,7 @@ def get_mbps():
 
 
 def print_callback(packet):
-    global nodes
+    global db
     global fresh_nodes
     global first
     global fresh_n_sem
@@ -56,10 +60,13 @@ def print_callback(packet):
 
         fresh_n_sem.release()
 
-        if ip_info.src not in nodes:
-            nodes[ip_info.src] = 0
+        # TODO: Change logic to try create a new row in the database
+        # TODO: or to update an existing one
 
-        nodes[ip_info.src] += int(ip_info.len)
+        # if ip_info.src not in nodes:
+        #     nodes[ip_info.src] = 0
+
+        # nodes[ip_info.src] += int(ip_info.len)
 
         if first:
             mbps_thread = threading.Thread(target=get_mbps)
