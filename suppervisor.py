@@ -1,9 +1,8 @@
+import threading
 from time import sleep
 import pyshark
 from pyshark.packet.layers.xml_layer import XmlLayer
-import threading
-
-from database import DatabaseInterface
+from database import DatabaseInterface, Node
 
 # -----------------------------------------------------------------------------
 
@@ -30,10 +29,8 @@ def get_mbps():
         for _, val in fresh_nodes.items():
             mbps += val / 1_000_000
 
-        print(f"MBPS: {mbps}")
-
-        db.create_table_row('speed', {
-            'speed': mbps
+        db.create_table_row('speeds', {
+            'Speed': mbps
         })
 
         fresh_nodes.clear()
@@ -60,13 +57,17 @@ def print_callback(packet):
 
         fresh_n_sem.release()
 
-        # TODO: Change logic to try create a new row in the database
-        # TODO: or to update an existing one
+        node: list[Node] = db.read_by_field('nodes', 'Ip', ip_info.src)
 
-        # if ip_info.src not in nodes:
-        #     nodes[ip_info.src] = 0
-
-        # nodes[ip_info.src] += int(ip_info.len)
+        if len(node):
+            db.update_table_row('nodes', node[0].Id, {
+                'Consumption': node[0].Consumption + int(ip_info.len)
+            })
+        else:
+            db.create_table_row('nodes', {
+                'Ip': ip_info.src,
+                'Consumption': int(ip_info.len)
+            })
 
         if first:
             mbps_thread = threading.Thread(target=get_mbps)

@@ -11,7 +11,8 @@ class Node(Base):
     __tablename__ = 'nodes'
 
     Id = Column(Integer(), primary_key=True)
-    Ip = Column(String(15), nullable=False)
+    Ip = Column(String(15), nullable=False, unique=True)
+    # Hostname = Column(String(255), nullable=False, unique=True)
     Consumption = Column(DECIMAL(precision=10, scale=8), nullable=False)
     Timestamp = Column(TIMESTAMP(), nullable=False, default=dt.now())
 

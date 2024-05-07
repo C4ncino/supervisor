@@ -15,8 +15,8 @@ from .speed import Speed
 load_dotenv()
 
 TABLE_CLASS_MAP = {
-    'node': Node,
-    'speed': Speed
+    'nodes': Node,
+    'speeds': Speed
 }
 
 
