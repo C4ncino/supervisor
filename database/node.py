@@ -1,5 +1,5 @@
 from datetime import datetime as dt
-from sqlalchemy import Column, Integer, String, TIMESTAMP, DECIMAL
+from sqlalchemy import Column, Integer, String, TIMESTAMP, DECIMAL, Boolean
 from .base import Base
 
 
@@ -15,6 +15,7 @@ class Node(Base):
     # Hostname = Column(String(255), nullable=False, unique=True)
     Consumption = Column(DECIMAL(precision=10, scale=8), nullable=False)
     Timestamp = Column(TIMESTAMP(), nullable=False, default=dt.now())
+    Active = Column(Boolean, default=true)
 
     def serialize(self):
         """

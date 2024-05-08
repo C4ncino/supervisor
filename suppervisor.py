@@ -1,6 +1,7 @@
+import os
+import pyshark
 import threading
 from time import sleep
-import pyshark
 from pyshark.packet.layers.xml_layer import XmlLayer
 from database import DatabaseInterface, Node
 
@@ -77,8 +78,30 @@ def print_callback(packet):
     except AttributeError:
         pass
 
+def scan_network(ip):
+    # global variables
+    global db
+    # local variables
+    ips = []
+    hosts = []
+
+    tokens = ip.split(".")
+    # scan the network for alive hosts
+    #os.system(f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24  192.178.57.0/24 | awk '/Nmap scan report for/{print $NF}' | awk '{gsub(/[()]/,\"\")}1' > output")
+    os.system(f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24 | awk '/Nmap scan report for/{print $NF}' | awk '{gsub(/[()]/,\"\")}1' > output")
+    # execute the network scan every minute
+    threading.Timer(180, scan_network).start()
+    # get all alive hosts
+    with open('output', 'r') as file:
+        ips = file.readlines()
+    # update previously stored hosts
+    ips = db.update_hosts(ips)
+    # add the new found hosts
+    for ip in ips:
+        db.create_table_row('nodes', {'Ip': ip, 'Consumption': 0, 'Active': true)
 
 def main():
+
     capture = pyshark.LiveCapture(interface='Wi-Fi')
 
     thread_capture = threading.Thread(
