@@ -1,122 +1,60 @@
-Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-07 20:15 CST
-Nmap scan report for pnqroa-ai-in-f0.1e100.net (192.178.57.0)
-Host is up (0.012s latency).
-Nmap scan report for pnqroa-ai-in-f1.1e100.net (192.178.57.1)
-Host is up (0.074s latency).
-Nmap scan report for pnqroa-ai-in-f2.1e100.net (192.178.57.2)
-Host is up (0.079s latency).
-Nmap scan report for pnqroa-ai-in-f3.1e100.net (192.178.57.3)
-Host is up (0.078s latency).
-Nmap scan report for pnqroa-ai-in-f4.1e100.net (192.178.57.4)
-Host is up (0.079s latency).
-Nmap scan report for pnqroa-ai-in-f5.1e100.net (192.178.57.5)
-Host is up (0.080s latency).
-Nmap scan report for pnqroa-ai-in-f6.1e100.net (192.178.57.6)
-Host is up (0.079s latency).
-Nmap scan report for pnqroa-ai-in-f7.1e100.net (192.178.57.7)
-Host is up (0.080s latency).
-Nmap scan report for pnqroa-ai-in-f8.1e100.net (192.178.57.8)
-Host is up (0.079s latency).
-Nmap scan report for pnqroa-ai-in-f9.1e100.net (192.178.57.9)
-Host is up (0.080s latency).
-Nmap scan report for pnqroa-ai-in-f10.1e100.net (192.178.57.10)
-Host is up (0.079s latency).
-Nmap scan report for pnqroa-ai-in-f11.1e100.net (192.178.57.11)
-Host is up (0.011s latency).
-Nmap scan report for pnqroa-ai-in-f12.1e100.net (192.178.57.12)
-Host is up (0.032s latency).
-Nmap scan report for pnqroa-ai-in-f13.1e100.net (192.178.57.13)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-ai-in-f14.1e100.net (192.178.57.14)
-Host is up (0.014s latency).
-Nmap scan report for pnqroa-ai-in-f15.1e100.net (192.178.57.15)
-Host is up (0.011s latency).
-Nmap scan report for pnqroa-ai-in-f16.1e100.net (192.178.57.16)
-Host is up (0.011s latency).
-Nmap scan report for pnqroa-ai-in-f17.1e100.net (192.178.57.17)
-Host is up (0.021s latency).
-Nmap scan report for pnqroa-ai-in-f18.1e100.net (192.178.57.18)
-Host is up (0.021s latency).
-Nmap scan report for pnqroa-ai-in-f19.1e100.net (192.178.57.19)
-Host is up (0.011s latency).
-Nmap scan report for pnqroa-ai-in-f20.1e100.net (192.178.57.20)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-ai-in-f21.1e100.net (192.178.57.21)
-Host is up (0.029s latency).
-Nmap scan report for pnqroa-ai-in-f22.1e100.net (192.178.57.22)
-Host is up (0.030s latency).
-Nmap scan report for pnqroa-ai-in-f23.1e100.net (192.178.57.23)
-Host is up (0.026s latency).
-Nmap scan report for pnqroa-ai-in-f24.1e100.net (192.178.57.24)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-ai-in-f25.1e100.net (192.178.57.25)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-ai-in-f26.1e100.net (192.178.57.26)
-Host is up (0.014s latency).
-Nmap scan report for pnqroa-ai-in-f27.1e100.net (192.178.57.27)
-Host is up (0.029s latency).
-Nmap scan report for pnqroa-ai-in-f28.1e100.net (192.178.57.28)
-Host is up (0.029s latency).
-Nmap scan report for pnqroa-ai-in-f31.1e100.net (192.178.57.31)
-Host is up (0.029s latency).
-Nmap scan report for pnqroa-aj-in-f0.1e100.net (192.178.57.32)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-aj-in-f1.1e100.net (192.178.57.33)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-aj-in-f2.1e100.net (192.178.57.34)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-aj-in-f3.1e100.net (192.178.57.35)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-aj-in-f4.1e100.net (192.178.57.36)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-aj-in-f5.1e100.net (192.178.57.37)
-Host is up (0.021s latency).
-Nmap scan report for pnqroa-aj-in-f6.1e100.net (192.178.57.38)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-aj-in-f7.1e100.net (192.178.57.39)
-Host is up (0.022s latency).
-Nmap scan report for pnqroa-aj-in-f8.1e100.net (192.178.57.40)
-Host is up (0.022s latency).
-Nmap scan report for pnqroa-aj-in-f9.1e100.net (192.178.57.41)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-aj-in-f10.1e100.net (192.178.57.42)
-Host is up (0.026s latency).
-Nmap scan report for pnqroa-aj-in-f11.1e100.net (192.178.57.43)
-Host is up (0.021s latency).
-Nmap scan report for pnqroa-aj-in-f12.1e100.net (192.178.57.44)
-Host is up (0.0100s latency).
-Nmap scan report for pnqroa-aj-in-f13.1e100.net (192.178.57.45)
-Host is up (0.026s latency).
-Nmap scan report for pnqroa-aj-in-f14.1e100.net (192.178.57.46)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-aj-in-f15.1e100.net (192.178.57.47)
-Host is up (0.019s latency).
-Nmap scan report for pnqroa-aj-in-f16.1e100.net (192.178.57.48)
-Host is up (0.021s latency).
-Nmap scan report for pnqroa-aj-in-f17.1e100.net (192.178.57.49)
-Host is up (0.022s latency).
-Nmap scan report for pnqroa-aj-in-f18.1e100.net (192.178.57.50)
-Host is up (0.021s latency).
-Nmap scan report for pnqroa-aj-in-f19.1e100.net (192.178.57.51)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-aj-in-f20.1e100.net (192.178.57.52)
-Host is up (0.025s latency).
-Nmap scan report for pnqroa-aj-in-f21.1e100.net (192.178.57.53)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-aj-in-f22.1e100.net (192.178.57.54)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-aj-in-f23.1e100.net (192.178.57.55)
-Host is up (0.016s latency).
-Nmap scan report for pnqroa-aj-in-f24.1e100.net (192.178.57.56)
-Host is up (0.021s latency).
-Nmap scan report for pnqroa-aj-in-f25.1e100.net (192.178.57.57)
-Host is up (0.029s latency).
-Nmap scan report for pnqroa-aj-in-f26.1e100.net (192.178.57.58)
-Host is up (0.047s latency).
-Nmap scan report for pnqroa-aj-in-f27.1e100.net (192.178.57.59)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-aj-in-f28.1e100.net (192.178.57.60)
-Host is up (0.028s latency).
-Nmap scan report for pnqroa-aj-in-f31.1e100.net (192.178.57.63)
-Host is up (0.024s latency).
-Nmap done: 256 IP addresses (60 hosts up) scanned in 1.99 seconds
+192.178.57.0
+192.178.57.1
+192.178.57.2
+192.178.57.3
+192.178.57.4
+192.178.57.5
+192.178.57.6
+192.178.57.7
+192.178.57.8
+192.178.57.9
+192.178.57.10
+192.178.57.11
+192.178.57.12
+192.178.57.13
+192.178.57.14
+192.178.57.15
+192.178.57.16
+192.178.57.17
+192.178.57.18
+192.178.57.19
+192.178.57.20
+192.178.57.21
+192.178.57.22
+192.178.57.23
+192.178.57.24
+192.178.57.25
+192.178.57.26
+192.178.57.27
+192.178.57.28
+192.178.57.31
+192.178.57.32
+192.178.57.33
+192.178.57.34
+192.178.57.35
+192.178.57.36
+192.178.57.37
+192.178.57.38
+192.178.57.39
+192.178.57.40
+192.178.57.41
+192.178.57.42
+192.178.57.43
+192.178.57.44
+192.178.57.45
+192.178.57.46
+192.178.57.47
+192.178.57.48
+192.178.57.49
+192.178.57.50
+192.178.57.51
+192.178.57.52
+192.178.57.53
+192.178.57.54
+192.178.57.55
+192.178.57.56
+192.178.57.57
+192.178.57.58
+192.178.57.59
+192.178.57.60
+192.178.57.63
