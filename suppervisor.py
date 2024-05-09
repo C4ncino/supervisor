@@ -4,6 +4,7 @@ import threading
 from time import sleep
 from pyshark.packet.layers.xml_layer import XmlLayer
 from database import DatabaseInterface, Node
+from decimal import Decimal
 
 # -----------------------------------------------------------------------------
 
@@ -62,12 +63,12 @@ def print_callback(packet):
 
         if len(node):
             db.update_table_row('nodes', node[0].Id, {
-                'Consumption': node[0].Consumption + int(ip_info.len)
+                'Consumption': node[0].Consumption + Decimal((int(ip_info.len) / 1_000_000))
             })
         else:
             db.create_table_row('nodes', {
                 'Ip': ip_info.src,
-                'Consumption': int(ip_info.len)
+                'Consumption': Decimal((int(ip_info.len) / 1_000_000))
             })
 
         if first:
@@ -88,7 +89,7 @@ def scan_network(ip):
     tokens = ip.split(".")
     # scan the network for alive hosts
     #os.system(f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24  192.178.57.0/24 | awk '/Nmap scan report for/{print $NF}' | awk '{gsub(/[()]/,\"\")}1' > output")
-    os.system(f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24 | awk '/Nmap scan report for/{print $NF}' | awk '{gsub(/[()]/,\"\")}1' > output")
+    #? os.system(f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24 | awk '/Nmap scan report for/{print $NF}' | awk '{gsub(/[()]/,\"\")}1' > output")
     # execute the network scan every minute
     threading.Timer(180, scan_network).start()
     # get all alive hosts
@@ -98,7 +99,7 @@ def scan_network(ip):
     ips = db.update_hosts(ips)
     # add the new found hosts
     for ip in ips:
-        db.create_table_row('nodes', {'Ip': ip, 'Consumption': 0, 'Active': true)
+        db.create_table_row('nodes', {'Ip': ip, 'Consumption': 0, 'Active': True})
 
 def main():
 
