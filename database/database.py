@@ -182,3 +182,18 @@ class DatabaseInterface:
             return True
 
         return False
+
+    def update_hosts(self, ips):
+        nodes = read_all_table('nodes')
+        # update alive hosts
+        for node in nodes:
+            if node.Ip in ips:
+                node.Ip = true
+                # remove alive host
+                ips.remove(node.Ip)
+            elif node.Ip not in ips:
+                node.Ip = false
+        
+        this.session.commit()
+        
+        return ips
