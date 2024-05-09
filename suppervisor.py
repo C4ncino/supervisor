@@ -2,6 +2,7 @@ import os
 import pyshark
 import threading
 from time import sleep
+from datetime import datetime
 from pyshark.packet.layers.xml_layer import XmlLayer
 from database import DatabaseInterface, Node
 from decimal import Decimal
@@ -35,14 +36,16 @@ def get_mbps():
             mbps += val / 1_000_000
 
         db.create_table_row('speeds', {
-            'Speed': mbps
+            'Speed': mbps,
+            'Timestamp': datetime.now()
         })
 
         fresh_nodes.clear()
 
         fresh_n_sem.release()
         bd_sem.release()
-        sleep(1)
+
+        sleep(10)
 
 
 def print_callback(packet):
@@ -106,7 +109,7 @@ def scan_network(ip):
 
     os.system(command)
 
-    threading.Timer(180, scan_network).start()
+    threading.Timer(120, scan_network).start()
 
     with open('output', 'r') as file:
         ips = file.readlines()
@@ -129,7 +132,7 @@ def scan_network(ip):
 
 
 def main():
-    # scan_network('192.168.100.43')j
+    # scan_network('192.168.100.43')
 
     capture = pyshark.LiveCapture(interface='Wi-Fi')
 

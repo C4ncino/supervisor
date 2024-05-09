@@ -1,4 +1,3 @@
-from datetime import datetime as dt
 from sqlalchemy import Column, Integer, TIMESTAMP, DECIMAL
 from .base import Base
 
@@ -12,7 +11,7 @@ class Speed(Base):
 
     Id = Column(Integer(), primary_key=True)
     Speed = Column(DECIMAL(precision=10, scale=8), nullable=False)
-    Timestamp = Column(TIMESTAMP(), nullable=False, default=dt.now())
+    Timestamp = Column(TIMESTAMP(), nullable=False)
 
     def serialize(self):
         """

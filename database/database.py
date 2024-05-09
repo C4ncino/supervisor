@@ -36,8 +36,6 @@ class DatabaseInterface:
         self.db_url += f"{db_user}:{db_password}"
         self.db_url += f"@{db_host}:{db_port}/{db_name}"
 
-        print(self.db_url)
-
         self.engine = create_engine(self.db_url, echo=False)
 
         session_class = sessionmaker(bind=self.engine)
