@@ -12,6 +12,7 @@ from decimal import Decimal
 db = DatabaseInterface()
 fresh_nodes = {}
 first = True
+IP = '192.168.100.43'
 
 # -----------------------------------------------------------------------------
 
@@ -94,22 +95,22 @@ def print_callback(packet):
         pass
 
 
-def scan_network(ip):
+def scan_network():
+    global IP
+
     print("Scanning network...")
     global db
     global bd_sem
 
     ips = []
 
-    tokens = ip.split(".")
+    tokens = IP.split(".")
 
     command = f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24"
     command += " | awk '/Nmap scan report for/{print $NF}'"
     command += " | awk '{gsub(/[()]/,\"\")}1' > output"
 
     os.system(command)
-
-    threading.Timer(120, scan_network).start()
 
     with open('output', 'r') as file:
         ips = file.readlines()
@@ -130,9 +131,11 @@ def scan_network(ip):
 
     bd_sem.release()
 
+    threading.Timer(120, scan_network).start()
+
 
 def main():
-    # scan_network('192.168.100.43')
+    scan_network()
 
     capture = pyshark.LiveCapture(interface='Wi-Fi')
 
