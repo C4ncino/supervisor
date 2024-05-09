@@ -15,6 +15,7 @@ first = True
 # -----------------------------------------------------------------------------
 
 fresh_n_sem = threading.Semaphore(1)
+bd_sem = threading.Semaphore(1)
 
 # -----------------------------------------------------------------------------
 
@@ -22,9 +23,11 @@ fresh_n_sem = threading.Semaphore(1)
 def get_mbps():
     global fresh_n_sem
     global db
+    global bd_sem
 
     while True:
         fresh_n_sem.acquire()
+        bd_sem.acquire()
 
         mbps = 0.0
 
@@ -38,6 +41,7 @@ def get_mbps():
         fresh_nodes.clear()
 
         fresh_n_sem.release()
+        bd_sem.release()
         sleep(1)
 
 
@@ -46,6 +50,7 @@ def print_callback(packet):
     global fresh_nodes
     global first
     global fresh_n_sem
+    global bd_sem
 
     try:
         ip_info: XmlLayer = packet.ip
@@ -59,17 +64,23 @@ def print_callback(packet):
 
         fresh_n_sem.release()
 
+        bd_sem.acquire()
+
         node: list[Node] = db.read_by_field('nodes', 'Ip', ip_info.src)
+
+        package_len = Decimal((int(ip_info.len) / 1_000_000))
 
         if len(node):
             db.update_table_row('nodes', node[0].Id, {
-                'Consumption': node[0].Consumption + Decimal((int(ip_info.len) / 1_000_000))
+                'Consumption': node[0].Consumption + package_len
             })
         else:
             db.create_table_row('nodes', {
                 'Ip': ip_info.src,
-                'Consumption': Decimal((int(ip_info.len) / 1_000_000))
+                'Consumption': package_len
             })
+
+        bd_sem.release()
 
         if first:
             mbps_thread = threading.Thread(target=get_mbps)
@@ -79,29 +90,46 @@ def print_callback(packet):
     except AttributeError:
         pass
 
+
 def scan_network(ip):
-    # global variables
+    print("Scanning network...")
     global db
-    # local variables
+    global bd_sem
+
     ips = []
-    hosts = []
 
     tokens = ip.split(".")
-    # scan the network for alive hosts
-    #os.system(f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24  192.178.57.0/24 | awk '/Nmap scan report for/{print $NF}' | awk '{gsub(/[()]/,\"\")}1' > output")
-    #? os.system(f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24 | awk '/Nmap scan report for/{print $NF}' | awk '{gsub(/[()]/,\"\")}1' > output")
-    # execute the network scan every minute
+
+    command = f"nmap -sn {tokens[0]}.{tokens[1]}.{tokens[2]}.0/24"
+    command += " | awk '/Nmap scan report for/{print $NF}'"
+    command += " | awk '{gsub(/[()]/,\"\")}1' > output"
+
+    os.system(command)
+
     threading.Timer(180, scan_network).start()
-    # get all alive hosts
+
     with open('output', 'r') as file:
         ips = file.readlines()
-    # update previously stored hosts
+
+    bd_sem.acquire()
+
     ips = db.update_hosts(ips)
-    # add the new found hosts
+
     for ip in ips:
-        db.create_table_row('nodes', {'Ip': ip, 'Consumption': 0, 'Active': True})
+        db.create_table_row(
+            'nodes',
+            {
+                'Ip': ip,
+                'Consumption': 0,
+                'Active': True
+            }
+        )
+
+    bd_sem.release()
+
 
 def main():
+    # scan_network('192.168.100.43')j
 
     capture = pyshark.LiveCapture(interface='Wi-Fi')
 

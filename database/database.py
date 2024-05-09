@@ -36,6 +36,8 @@ class DatabaseInterface:
         self.db_url += f"{db_user}:{db_password}"
         self.db_url += f"@{db_host}:{db_port}/{db_name}"
 
+        print(self.db_url)
+
         self.engine = create_engine(self.db_url, echo=False)
 
         session_class = sessionmaker(bind=self.engine)
@@ -185,15 +187,16 @@ class DatabaseInterface:
 
     def update_hosts(self, ips):
         nodes = self.read_all_table('nodes')
-        # update alive hosts
+
         for node in nodes:
             if node.Ip in ips:
                 node.Ip = True
-                # remove alive host
+
                 ips.remove(node.Ip)
+
             elif node.Ip not in ips:
                 node.Ip = False
-        
+
         self.session.commit()
-        
+
         return ips
