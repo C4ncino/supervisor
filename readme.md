@@ -60,27 +60,27 @@ La red es un componente crítico en cualquier entorno tecnológico, y su monitor
     * Ejemplo
 
 ```plain
--------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 |Bienvenido al asistente de configuración de Raspberry Pi.				|
 |											|
-|Por favor, sigue los pasos a continuación para configurar tu Raspberry Pi.	|
+|Por favor, sigue los pasos a continuación para configurar tu Raspberry Pi.     	|
 |											|
 |1. Configuración regional:								|
 |   - Selecciona tu país/región: [México]						|
 |											|
 |2. Configuración de red:								|
-|   - Selecciona tu red Wi-Fi: [Nombre de la red] (internecito)			|
+|   - Selecciona tu red Wi-Fi: [Nombre de la red] (internecito)		        	|
 |   - Introduce la contraseña: [**********] (nose1234)					|
 |											|
-|3. Configuración de la contraseña del usuario:					|
+|3. Configuración de la contraseña del usuario:					        |
 |   - Introduce una nueva contraseña para el usuario 'pi': [**********]			|
 |   - Confirma la contraseña: [**********]						|	
 |											|
-|4. Actualización del software:							|
+|4. Actualización del software:						        	|
 |   - Instalando actualizaciones del sistema... [Progreso]				|
 |											|
-|Configuración completada. La Raspberry Pi se reiniciará automáticamente.	|
--------------------------------------------------------------------------------------------------------------
+|Configuración completada. La Raspberry Pi se reiniciará automáticamente.       	|
+-----------------------------------------------------------------------------------------
 
 ```
 4.	Actualización del sistema
@@ -88,8 +88,8 @@ La red es un componente crítico en cualquier entorno tecnológico, y su monitor
 
 ```plain
 ---------------------
-|sudo apt update  |
-|sudo apt upgrade |
+|sudo apt update    |
+|sudo apt upgrade   |
 ---------------------
 ```
 
