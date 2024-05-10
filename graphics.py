@@ -24,34 +24,7 @@ app.layout = html.Div([
     [Input("refresh", "n_intervals")]
 )
 def refresh(n):
-
-    # totalConsumption = 0
-
-    # nodos = []
-
-    # consumo_nodos = []
-
-    # nodos_activos = []
-
-    # fig = make_subplots(
-    #     rows=3,
-    #     cols=1,
-    #     subplot_titles=(
-    #         "Velocidad de la red",
-    #         "Total de consumo de ancho de banda",
-    #         "Información por nodo"
-    #     ))
-
     speeds = db.read_all_table('speeds')
-
-    # nodes = db.read_all_table('nodes')
-
-    # for node in nodes:
-    #     totalConsumption += node.Consumption
-
-    #     nodos.append(node.Ip)
-    #     consumo_nodos.append(node.Consumption)
-    #     nodos_activos.append(node.Active)
 
     fig_velocidad = go.Figure(
         data=go.Scatter(
@@ -61,43 +34,12 @@ def refresh(n):
         )
     )
 
-    # fig_consumo_total = go.Figure(
-    #     data=go.Bar(x=[str(totalConsumption)], y=[totalConsumption])
-    # )
-
-    # fig_consumo_nodos = go.Figure(
-    #     data=go.Scatter(
-    #         x=nodos,
-    #         y=consumo_nodos,
-    #         mode='markers',
-    #         marker=dict(color=nodos_activos))
-    # )
-
     fig_velocidad.update_xaxes(title_text="Fecha")
     fig_velocidad.update_yaxes(title_text="Velocidad (Mbps)")
 
     fig_velocidad.update_layout(
         title_text="Velocidad de la red"
     )
-
-    # fig.add_trace(fig_velocidad.data[0], row=1, col=1)
-    # fig.add_trace(fig_consumo_total.data[0], row=2, col=1)
-    # fig.add_trace(fig_consumo_nodos.data[0], row=3, col=1)
-
-    # fig.update_xaxes(title_text="Fecha", row=1, col=1)
-    # fig.update_yaxes(title_text="Velocidad (Mbps)", row=1, col=1)
-
-    # fig.update_xaxes(title_text="Total", row=2, col=1)
-    # fig.update_yaxes(title_text="Consumo (MB)", row=2, col=1)
-
-    # fig.update_xaxes(title_text="Nodos", row=3, col=1)
-    # fig.update_yaxes(title_text="Consumo (MB)", row=3, col=1)
-
-    # fig.update_layout(
-    #     height=900,
-    #     width=800,
-    #     title_text="Visualizaciones de red y ancho de banda"
-    # )
 
     return fig_velocidad
 

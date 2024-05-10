@@ -135,7 +135,7 @@ def scan_network():
 
 
 def main():
-    scan_network()
+    # scan_network()
 
     capture = pyshark.LiveCapture(interface='Wi-Fi')
 
